@@ -17,7 +17,25 @@ export default async function HalamanDetailProduk({ params }) {
     .eq("id", id)
     .maybeSingle();
 
-  if (error || !produk) {
+  // Jika terjadi kesalahan server/database, jangan keliru menganggapnya sebagai 404
+  if (error) {
+    return (
+      <div className="py-12">
+        <Link href="/" className="text-sm text-teks-lembut underline underline-offset-4 hover:text-utama">
+          Kembali ke katalog
+        </Link>
+        <div className="mt-4 rounded-xl border border-garis bg-permukaan p-6 text-bahaya">
+          <h2 className="text-lg font-bold">Terjadi kesalahan</h2>
+          <p className="mt-1 text-sm text-teks-lembut">
+            Gagal memuat data produk dari database: {error.message}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Jika data produk tidak ditemukan di database, panggil notFound()
+  if (!produk) {
     notFound();
   }
 
