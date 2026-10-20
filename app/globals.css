@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /*
   Token desain. Ganti nilai di sini untuk menyesuaikan dengan usahamu.
   Penjelasan setiap token ada di DESIGN.md.
@@ -20,6 +22,28 @@
   --color-harga-latar: #fbefd8;
 
   --color-bahaya: #b42318;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+
+  --color-latar: #101614;
+  --color-permukaan: #18221e;
+  --color-garis: #2a3731;
+  --color-teks: #edf2ee;
+  --color-teks-lembut: #9cb1a6;
+
+  --color-utama: #2ea677;
+  --color-utama-gelap: #238861;
+
+  --color-harga: #fcd38d;
+  --color-harga-latar: #3b2812;
+
+  --color-bahaya: #f87171;
 }
 
 html {
