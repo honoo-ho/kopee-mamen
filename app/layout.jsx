@@ -19,11 +19,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="id" suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("tema");var d=window.matchMedia("(prefers-color-scheme: dark)").matches;if(t==="dark"||(!t&&d)){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}})();`,
-          }}
-        />
+        <script>
+          {`(function(){try{var t=localStorage.getItem("tema");var d=window.matchMedia("(prefers-color-scheme: dark)").matches;if(t==="dark"||(!t&&d)){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}})();`}
+        </script>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1f6b4f" />
         <meta name="mobile-web-app-capable" content="yes" />
