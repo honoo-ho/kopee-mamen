@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createSessionClient } from "@/lib/supabase/server";
+import { buatDeskripsiProduk } from "@/lib/gemini";
 
 /**
  * Server Action untuk memproses login admin dengan Supabase Auth.
@@ -75,6 +76,27 @@ export async function gantiPassword(prevState, formData) {
   }
 
   return { success: "Password berhasil diganti." };
+}
+
+/**
+ * Server Action untuk membuat deskripsi produk dengan AI (Gemini API).
+ * Memeriksa bahwa admin sudah login di server sebelum memproses permintaan (US-14).
+ *
+ * @param {Object} params
+ * @param {string} params.nama - Nama produk
+ * @param {string} [params.kategori] - Kategori produk
+ */
+export async function buatDeskripsiAI({ nama, kategori }) {
+  // 1. Periksa autentikasi admin di server
+  const supabase = await createSessionClient();
+  const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    return { error: "Akses ditolak: Kamu harus login sebagai admin terlebih dahulu." };
+  }
+
+  // 2. Panggil fungsi Gemini API di server
+  return await buatDeskripsiProduk({ nama, kategori });
 }
 
 export const login = masuk;
